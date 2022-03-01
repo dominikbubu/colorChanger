@@ -155,15 +155,29 @@ const CSS_COLOR_NAMES = [
 const changeColorBtn = document.querySelector('#changeColor');
 const currentColor = document.querySelector('#currentColor');
 
-// listener
-changeColorBtn.addEventListener('click', () => {
-    // random num
-    const randomNum = Math.floor(Math.random() * CSS_COLOR_NAMES.length + 1);
+// funcntions
+function getRandomColor() {
+  const randomIndex = Math.floor(Math.random() * CSS_COLOR_NAMES.length);
+  return CSS_COLOR_NAMES[randomIndex];
+}
 
-    // edit css
-    document.body.style.background = `${CSS_COLOR_NAMES[randomNum]}`;
-    currentColor.style.color = `${CSS_COLOR_NAMES[randomNum]}`;
+function changeColor() {
+  const newColor = getRandomColor();
+  document.body.style.backgroundColor = newColor;
+  currentColor.style.color = newColor;
+  currentColor.textContent = newColor;
+}
 
-    //edit text
-    currentColor.innerHTML = `${CSS_COLOR_NAMES[randomNum]}`;
+// listeners
+window.addEventListener('load', changeColor);
+changeColorBtn.addEventListener('click', changeColor);
+// event listener for keypress
+document.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    changeColor();
+  } else if (event.key === ' ') {
+    changeColor();
+  }
 });
+
+
